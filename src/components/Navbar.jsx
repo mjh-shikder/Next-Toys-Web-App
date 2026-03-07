@@ -18,6 +18,7 @@ const Navbar = () => {
         window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
       document.documentElement.classList.add("dark");
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsDarkMode(true);
     } else {
       document.documentElement.classList.remove("dark");
@@ -127,11 +128,37 @@ const Navbar = () => {
                 )}
               </button>
 
-              <div className="hidden sm:flex items-center space-x-2">
-                <div className="avatar">
-                  <div className="w-10 rounded-xl ">
-                    <Image className="rounded-xl" width={50} height={50} alt='user' src="https://img.daisyui.com/images/profile/demo/batperson@192.webp" />
+              {/* Profile Image */}
+              <div className="flex items-center space-x-2">
+                <div className="dropdown dropdown-end z-30">
+                  <div tabIndex={0} role="button" className="m-1">
+                    <div className="avatar">
+                      <div className="ring-primary  w-11 rounded-xl ">
+                        <Image width={50} height={50} src={"https://img.daisyui.com/images/profile/demo/batperson@192.webp"} />
+                      </div>
+                    </div>
                   </div>
+                  <ul
+                    tabIndex="-1"
+                    className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                  >
+                    <li className="flex items-center">
+                      <Link
+                        href={"/profile"}
+                        className=" btn-accent rounded-xl mb-2.5 font-semibold "
+                      >
+                        Profile
+                      </Link>{" "}
+                    </li>
+                    <li className="flex items-center">
+                      <button
+                        
+                        className=" btn-primary rounded-xl font-semibold text-primary  "
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
                 </div>
               </div>
 
