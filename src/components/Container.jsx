@@ -3,7 +3,7 @@ import React from "react";
 const Container = ({ className, children }) => {
   return (
     <div
-      className={`${className} container mx-auto py-2 px-2 md:px-2 lg:px-0 `}
+      className={`${className} container mx-auto py-2 px-2 md:px-2 lg:px-0 min-h-dvh `}
     >
       {children}
     </div>

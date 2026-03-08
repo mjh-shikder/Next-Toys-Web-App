@@ -9,6 +9,7 @@ import Link from "next/link";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [user, setUser] = useState(false)
 
   useEffect(() => {
     // Initialize theme based on user preference or system setting
@@ -128,38 +129,45 @@ const Navbar = () => {
                 )}
               </button>
 
-              {/* Profile Image */}
+              {/* Profile Image Dropdown */}
               <div className="flex items-center space-x-2">
-                <div className="dropdown dropdown-end z-30">
-                  <div tabIndex={0} role="button" className="m-1">
-                    <div className="avatar">
-                      <div className="ring-primary  w-11 rounded-xl ">
-                        <Image width={50} height={50} src={"https://img.daisyui.com/images/profile/demo/batperson@192.webp"} />
+                {user ? (
+                  <div className="dropdown dropdown-end z-30">
+                    <div tabIndex={0} role="button" className="m-1">
+                      <div className="avatar">
+                        <div className="ring-primary  w-11 rounded-xl ">
+                          <Image
+                            width={50}
+                            height={50}
+                            src={
+                              "https://img.daisyui.com/images/profile/demo/batperson@192.webp"
+                            }
+                          />
+                        </div>
                       </div>
                     </div>
+                    <ul
+                      tabIndex="-1"
+                      className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                    >
+                      <li className="flex items-center">
+                        <Link
+                          href={"/profile"}
+                          className=" btn-accent rounded-xl mb-2.5 font-semibold "
+                        >
+                          Profile
+                        </Link>{" "}
+                      </li>
+                      <li className="flex items-center">
+                        <button className=" btn-primary rounded-xl font-semibold text-primary  ">
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
                   </div>
-                  <ul
-                    tabIndex="-1"
-                    className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
-                  >
-                    <li className="flex items-center">
-                      <Link
-                        href={"/profile"}
-                        className=" btn-accent rounded-xl mb-2.5 font-semibold "
-                      >
-                        Profile
-                      </Link>{" "}
-                    </li>
-                    <li className="flex items-center">
-                      <button
-                        
-                        className=" btn-primary rounded-xl font-semibold text-primary  "
-                      >
-                        Logout
-                      </button>
-                    </li>
-                  </ul>
-                </div>
+                ) : (
+                  <Link className="btn btn-primary rounded-xl  " href={"/login"}>Login</Link>
+                )}
               </div>
 
               {/* Mobile Menu Button */}
