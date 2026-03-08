@@ -5,11 +5,20 @@ import React, { useState, useEffect } from "react";
 import logoBlack from "@/images/logo-black.png";
 import logoWhite from "@/images/logo-white.png";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const navLinks = [
+  { name: "Home", href: "/" },
+  { name: "Products", href: "/products" },
+  { name: "Best Sellers", href: "/best-sellers" },
+  { name: "About Us", href: "/about-us" },
+];
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [user, setUser] = useState(false)
+  const [user, setUser] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     // Initialize theme based on user preference or system setting
@@ -64,30 +73,19 @@ const Navbar = () => {
 
             {/* Desktop Navigation Links */}
             <nav className="hidden md:flex space-x-8">
-              <Link
-                href="/"
-                className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors"
-              >
-                Home
-              </Link>
-              <Link
-                href="/products"
-                className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors"
-              >
-                Products
-              </Link>
-              <Link
-                href="/best-sellers"
-                className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors"
-              >
-                Best Sellers
-              </Link>
-              <Link
-                href="/about-us"
-                className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors"
-              >
-                About Us
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`font-medium transition-colors ${
+                    pathname === link.href
+                      ? "text-primary dark:text-accent font-semibold"
+                      : "text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-accent"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
             </nav>
 
             {/* User Actions */}
@@ -214,34 +212,20 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden fixed inset-0 top-[73px] z-40 bg-white/90 dark:bg-black/90 backdrop-blur-lg border-b border-gray-200/50 dark:border-gray-800/50">
           <nav className="flex flex-col px-4 pt-4 pb-6 space-y-4">
-            <Link
-              href="/"
-              onClick={() => setIsMenuOpen(false)}
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              href="/products"
-              onClick={() => setIsMenuOpen(false)}
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
-            >
-              Products
-            </Link>
-            <Link
-              href="/best-sellers"
-              onClick={() => setIsMenuOpen(false)}
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
-            >
-              Best Sellers
-            </Link>
-            <Link
-              href="/about-us"
-              onClick={() => setIsMenuOpen(false)}
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
-            >
-              About Us
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                  pathname === link.href
+                    ? "text-primary dark:text-accent bg-primary/10 dark:bg-accent/10 font-semibold"
+                    : "text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-accent hover:bg-gray-50 dark:hover:bg-gray-900"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
 
             <div className="flex sm:hidden items-center justify-around pt-4 border-t border-gray-200 dark:border-gray-800">
               <button className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">

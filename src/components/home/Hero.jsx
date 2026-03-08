@@ -20,7 +20,7 @@ const Hero = () => {
             Discover Fun & Learning Toys for Kids
           </h1>
 
-          <p className="py-6 text-base-content/70">
+          <p className="py-6 text-secondary  ">
             Explore a magical collection of toys designed to spark creativity,
             learning, and endless fun for children of all ages.
           </p>
